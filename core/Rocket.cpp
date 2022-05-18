@@ -101,7 +101,7 @@ void Rocket::move(const Tracker *_p_tracker)
         if (p_chasing != nullptr)
         {
             Coordinate target = p_chasing->getPosition() + p_chasing->getSize() / 2;
-            Coordinate radiusVector =  target - position;
+            Coordinate radiusVector =  target - (position + size / 2);
 
             angle = radiusVector.calculateAngle() - velocityVector.calculateAngle();
             if (fabs(angle) > M_PI)

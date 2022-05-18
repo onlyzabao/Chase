@@ -5,6 +5,12 @@ Spaceship *Tracker::getTracking() const
     return p_tracking;
 }
 
+void Tracker::setTrancking(Spaceship *_p_spaceship)
+{
+    p_tracking = _p_spaceship;
+    state = STATE_DISABLE;
+}
+
 void Tracker::setKey(const ShootingControl &_key)
 {
     key = _key;

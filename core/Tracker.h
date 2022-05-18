@@ -31,6 +31,7 @@ public:
     virtual ~Tracker() = default;
 
     Spaceship *getTracking() const;
+    void setTrancking(Spaceship *_p_spaceship);
 
     void setKey(const ShootingControl &_key);
 

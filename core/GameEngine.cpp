@@ -1,20 +1,29 @@
 #include "GameEngine.h"
 
 
-void GameEngine::init(const std::vector<Coordinate> &_startPosition, const std::vector<MovementControl> &_movementKey, const ShootingControl &_shootingKey)
+void GameEngine::init(const std::vector<MovementControl> &_movementKey, const ShootingControl &_shootingKey)
 {
+    static constexpr Coordinate startPosition[Player::TOTAL_PLAYERS] = 
+    {
+        {SCREEN_WIDTH / 4 - SPACESHIP_WIDTH / 2, (SCREEN_HEIGHT * 3) / 4 - SPACESHIP_HEIGHT / 2},
+        {(SCREEN_WIDTH * 3) / 4 - SPACESHIP_WIDTH / 2, (SCREEN_HEIGHT * 3) / 4 - SPACESHIP_HEIGHT / 2},
+        {SCREEN_WIDTH / 4 - SPACESHIP_WIDTH / 2, SCREEN_HEIGHT / 4 - SPACESHIP_HEIGHT / 2},
+        {(SCREEN_WIDTH * 3) / 4 - SPACESHIP_WIDTH / 2, SCREEN_HEIGHT / 4 - SPACESHIP_HEIGHT / 2},
+    };
+
     srand(static_cast<unsigned int>(time(0)));
 
     for (int i = 0; i < playerNumber; i++)
     {
         p_spaceship[i] = new Spaceship(static_cast<Player>(i));
         p_spaceship[i]->setKey(_movementKey[i]);
-        p_spaceship[i]->setPosition(_startPosition[i]);
+        p_spaceship[i]->setPosition(startPosition[i]);
     }
 
     p_tracker = new Tracker;
     p_tracker->setKey(_shootingKey);
-    p_tracker->setPosition(_startPosition[rand() % playerNumber] - p_tracker->getSize());
+    int randomPlayer = rand() % playerNumber;
+    p_tracker->setTrancking(p_spaceship[randomPlayer]);
 
     p_rocket = new Rocket;
     

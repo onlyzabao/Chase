@@ -25,7 +25,7 @@ public:
     }
     ~GameEngine() = default;
 
-    void init(const std::vector<Coordinate> &_startPosition, const std::vector<MovementControl> &_movementKey, const ShootingControl &_shootingKey);
+    void init(const std::vector<MovementControl> &_movementKey, const ShootingControl &_shootingKey);
     void free();
 
     Player getWinner() const;
