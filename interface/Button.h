@@ -4,6 +4,7 @@
 class Button
 {
 public:
+    static constexpr int SPRITE_DISABLE = -1;
     static constexpr int SPRITE_DEFAULT = 0;
     static constexpr int SPRITE_MOUSEOVER = 1;
 

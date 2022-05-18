@@ -60,6 +60,7 @@ void GameUI::free()
 {
     Painter::free();
     Mixer::free();
+
     
     SDL_DestroyWindow(p_window);
     p_window = nullptr;
@@ -81,7 +82,7 @@ bool GameUI::loadTexture()
 
 bool GameUI::loadSound()
 {
-    if (!Mixer::loadSound())
+    if (!Mixer::load())
     {
         return false;
     }
@@ -91,12 +92,16 @@ bool GameUI::loadSound()
 void GameUI::initMainMenuButton()
 {
     button[ButtonType::START_BUTTON].setSize({256, 64});
-    button[ButtonType::OPTIONS_BUTTON].setSize({256, 64});
+    button[ButtonType::GUIDE_BUTTON].setSize({256, 64});
     button[ButtonType::EXIT_BUTTON].setSize({256, 64});
 
     button[ButtonType::START_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::START_BUTTON].getSize().w) / 2, 400});
-    button[ButtonType::OPTIONS_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::START_BUTTON].getSize().w) / 2, 500});
+    button[ButtonType::GUIDE_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::START_BUTTON].getSize().w) / 2, 500});
     button[ButtonType::EXIT_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::START_BUTTON].getSize().w) / 2, 600});
+                
+    button[ButtonType::START_BUTTON].setSprite(Button::SPRITE_DEFAULT);
+    button[ButtonType::GUIDE_BUTTON].setSprite(Button::SPRITE_DEFAULT);
+    button[ButtonType::EXIT_BUTTON].setSprite(Button::SPRITE_DEFAULT);
 }
 
 void GameUI::handleMainMenuEvent(Status &_status)
@@ -110,18 +115,21 @@ void GameUI::handleMainMenuEvent(Status &_status)
         if (event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONDOWN)
         {
             button[ButtonType::START_BUTTON].handleEvent(&event);
-            button[ButtonType::OPTIONS_BUTTON].handleEvent(&event);
+            button[ButtonType::GUIDE_BUTTON].handleEvent(&event);
             button[ButtonType::EXIT_BUTTON].handleEvent(&event);
             if (button[ButtonType::START_BUTTON].isClicked())
             {
+                playSound(Sound::BUTTON_SOUND);
                 _status = Status::BEGIN_STATUS;
             }
-            else if (button[ButtonType::OPTIONS_BUTTON].isClicked())
+            else if (button[ButtonType::GUIDE_BUTTON].isClicked())
             {
-                _status = Status::OPTION_STATUS;
+                playSound(Sound::BUTTON_SOUND);
+                _status = Status::GUIDE_STATUS;
             }
             else if (button[ButtonType::EXIT_BUTTON].isClicked())
             {
+                playSound(Sound::BUTTON_SOUND);
                 _status = Status::EXIT_STATUS;
             }
         }
@@ -136,19 +144,87 @@ void GameUI::handlePlaygroundEvent(Status &_status)
         {
             quit = true;
         }
+        if (event.type == SDL_KEYDOWN)
+        {
+            if (event.key.keysym.sym == SDLK_ESCAPE)
+            {
+                _status = Status::PAUSE_STATUS;
+            }
+        }
     }
 }
 
 void GameUI::initMiniMenuButton()
 {
-    button[ButtonType::START_BUTTON].setSize({256, 64});
+    button[ButtonType::RESTART_BUTTON].setSize({256, 64});
+    button[ButtonType::RESUME_BUTTON].setSize({256, 64});
     button[ButtonType::EXIT_BUTTON].setSize({256, 64});
 
-    button[ButtonType::START_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::START_BUTTON].getSize().w) / 2, 500});
+    button[ButtonType::RESUME_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::RESUME_BUTTON].getSize().w) / 2, 400});
+    button[ButtonType::RESTART_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::RESTART_BUTTON].getSize().w) / 2, 500});
     button[ButtonType::EXIT_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::START_BUTTON].getSize().w) / 2, 600});
+
+    button[ButtonType::RESUME_BUTTON].setSprite(Button::SPRITE_DEFAULT);
+    button[ButtonType::RESTART_BUTTON].setSprite(Button::SPRITE_DEFAULT);
+    button[ButtonType::EXIT_BUTTON].setSprite(Button::SPRITE_DEFAULT);
 }
 
 void GameUI::handleMiniMenuEvent(Status &_status)
+{
+    if (_status != Status::PAUSE_STATUS)
+    {
+        button[ButtonType::RESUME_BUTTON].setSprite(Button::SPRITE_DISABLE);
+    }
+
+    while (SDL_PollEvent(&event) > 0)
+    {
+        if (event.type == SDL_QUIT)
+        {
+            quit = true;
+        }
+        if (event.type == SDL_KEYDOWN)
+        {
+            if (event.key.keysym.sym == SDLK_ESCAPE && _status == Status::PAUSE_STATUS)
+            {
+                _status = Status::RUNNING_STATUS;
+            }
+        }
+        if (event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            if (_status == Status::PAUSE_STATUS)
+            {
+                button[ButtonType::RESUME_BUTTON].handleEvent(&event);
+                if (button[ButtonType::RESUME_BUTTON].isClicked())
+                {
+                    playSound(Sound::BUTTON_SOUND);
+                    _status = Status::RUNNING_STATUS;
+                }
+            }
+
+            button[ButtonType::RESTART_BUTTON].handleEvent(&event);
+            button[ButtonType::EXIT_BUTTON].handleEvent(&event);
+            if (button[ButtonType::RESTART_BUTTON].isClicked())
+            {
+                playSound(Sound::BUTTON_SOUND);
+                _status = Status::BEGIN_STATUS;
+            }
+            else if (button[ButtonType::EXIT_BUTTON].isClicked())
+            {
+                playSound(Sound::BUTTON_SOUND);
+                _status = Status::EXIT_STATUS;
+            }
+        }
+    }
+}
+
+void GameUI::initGuideMenuButton()
+{
+    button[ButtonType::EXIT_BUTTON].setSize({256, 64});
+    button[ButtonType::EXIT_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::START_BUTTON].getSize().w) / 2, 800});
+    button[ButtonType::EXIT_BUTTON].setSprite(Button::SPRITE_DEFAULT);
+}
+
+void GameUI::handleGuideMenuEvent(Status &_status)
 {
     while (SDL_PollEvent(&event) > 0)
     {
@@ -158,15 +234,61 @@ void GameUI::handleMiniMenuEvent(Status &_status)
         }
         if (event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONDOWN)
         {
-            button[ButtonType::START_BUTTON].handleEvent(&event);
             button[ButtonType::EXIT_BUTTON].handleEvent(&event);
-            if (button[ButtonType::START_BUTTON].isClicked())
+            if (button[ButtonType::EXIT_BUTTON].isClicked())
             {
-                _status = Status::BEGIN_STATUS;
-            }
-            else if (button[ButtonType::EXIT_BUTTON].isClicked())
-            {
+                playSound(Sound::BUTTON_SOUND);
                 _status = Status::EXIT_STATUS;
+            }
+        }
+    }
+}
+
+void GameUI::initStartMenuButton()
+{
+    button[ButtonType::TWO_PLAYER_BUTTON].setSize({512, 128});
+    button[ButtonType::THREE_PLAYER_BUTTON].setSize({512, 128});
+    button[ButtonType::FOUR_PLAYER_BUTTON].setSize({512, 128});
+
+    button[ButtonType::TWO_PLAYER_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::TWO_PLAYER_BUTTON].getSize().w) / 2, 300});
+    button[ButtonType::THREE_PLAYER_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::THREE_PLAYER_BUTTON].getSize().w) / 2, 500});
+    button[ButtonType::FOUR_PLAYER_BUTTON].setPosition({(SCREEN_WIDTH - button[ButtonType::FOUR_PLAYER_BUTTON].getSize().w) / 2, 700});
+
+    button[ButtonType::TWO_PLAYER_BUTTON].setSprite(Button::SPRITE_DEFAULT);
+    button[ButtonType::THREE_PLAYER_BUTTON].setSprite(Button::SPRITE_DEFAULT);
+    button[ButtonType::FOUR_PLAYER_BUTTON].setSprite(Button::SPRITE_DEFAULT);
+}
+
+void GameUI::handleStartMenuEvent(Status &_status)
+{
+    while (SDL_PollEvent(&event) > 0)
+    {
+        if (event.type == SDL_QUIT)
+        {
+            quit = true;
+        }
+        if (event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            button[ButtonType::TWO_PLAYER_BUTTON].handleEvent(&event);
+            button[ButtonType::THREE_PLAYER_BUTTON].handleEvent(&event);
+            button[ButtonType::FOUR_PLAYER_BUTTON].handleEvent(&event);
+            if (button[ButtonType::TWO_PLAYER_BUTTON].isClicked())
+            {
+                playSound(Sound::BUTTON_SOUND);
+                playerNumber = 2;
+                _status = Status::END_STATUS;
+            }
+            else if (button[ButtonType::THREE_PLAYER_BUTTON].isClicked())
+            {
+                playSound(Sound::BUTTON_SOUND);
+                playerNumber = 3;
+                _status = Status::END_STATUS;
+            }
+            else if (button[ButtonType::FOUR_PLAYER_BUTTON].isClicked())
+            {
+                playSound(Sound::BUTTON_SOUND);
+                playerNumber = 4;
+                _status = Status::END_STATUS;
             }
         }
     }
@@ -180,6 +302,21 @@ const Uint8 *GameUI::getKeyState() const
 std::vector<Button> GameUI::getButtonMap() const
 {
     return button;
+}
+
+std::vector<MovementControl> GameUI::getMovementKey() const
+{
+    return movementKey;
+}
+
+ShootingControl GameUI::getShootingKey() const
+{
+    return shootintKey;
+}
+
+int GameUI::getPlayerNumber() const
+{
+    return playerNumber;
 }
 
 bool GameUI::isQuit() const

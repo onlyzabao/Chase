@@ -44,7 +44,13 @@ bool Painter::loadTexture()
         std::cout << "Unable to load title texture." << std::endl;
         return false;
     }
+    if (!startMenuTitleTexture.loadFromRenderedText(p_renderer, p_titleTextFont, "GAME MODE", MAIN_COLOR))
+    {
+        std::cout << "Unable to load start menu title texture." << std::endl;
+        return false;
+    }
 
+    // Playground texture
     if (!playgroundTexture[ObjectType::ROCKET].loadFromFile(p_renderer, "./asset/png/playground/rocket.png"))
     {
         std::cout << "Unable to load rocket texture." << std::endl;
@@ -106,38 +112,90 @@ bool Painter::loadTexture()
     }
 
     // Mini menu texture
-    if (!miniMenuTitleTexture[Player::PLAYER_1].loadFromRenderedText(p_renderer, p_winnerTextFont, "PLAYER 1 WIN!", PLAYER_1_COLOR))
+    if (!miniMenuTexture[Player::PLAYER_1].loadFromRenderedText(p_renderer, p_winnerTextFont, "PLAYER 1 WIN!", PLAYER_1_COLOR))
     {
         std::cout << "Unable to load winner texture." << std::endl;
         return false;
     }
-    if (!miniMenuTitleTexture[Player::PLAYER_2].loadFromRenderedText(p_renderer, p_winnerTextFont, "PLAYER 2 WIN!", PLAYER_2_COLOR))
+    if (!miniMenuTexture[Player::PLAYER_2].loadFromRenderedText(p_renderer, p_winnerTextFont, "PLAYER 2 WIN!", PLAYER_2_COLOR))
     {
         std::cout << "Unable to load winner texture." << std::endl;
         return false;
     }
-    if (!miniMenuTitleTexture[Player::PLAYER_3].loadFromRenderedText(p_renderer, p_winnerTextFont, "PLAYER 3 WIN!", PLAYER_3_COLOR))
+    if (!miniMenuTexture[Player::PLAYER_3].loadFromRenderedText(p_renderer, p_winnerTextFont, "PLAYER 3 WIN!", PLAYER_3_COLOR))
     {
         std::cout << "Unable to load winner texture." << std::endl;
         return false;
     }
-    if (!miniMenuTitleTexture[Player::PLAYER_4].loadFromRenderedText(p_renderer, p_winnerTextFont, "PLAYER 4 WIN!", PLAYER_4_COLOR))
+    if (!miniMenuTexture[Player::PLAYER_4].loadFromRenderedText(p_renderer, p_winnerTextFont, "PLAYER 4 WIN!", PLAYER_4_COLOR))
     {
         std::cout << "Unable to load winner texture." << std::endl;
+        return false;
+    }
+    if (!miniMenuTitleTexture.loadFromRenderedText(p_renderer, p_titleTextFont, "MINI MENU", MAIN_COLOR))
+    {
+        std::cout << "Unable to load mini menu title texture." << std::endl;
         return false;
     }
 
+    // Guide texture
+    if (!guideTexture[Player::PLAYER_1].loadFromFile(p_renderer, "./asset/png/menu/player_1.png"))
+    {
+        std::cout << "Unable to load guide texture." << std::endl;
+        return false;
+    }
+    if (!guideTexture[Player::PLAYER_2].loadFromFile(p_renderer, "./asset/png/menu/player_2.png"))
+    {
+        std::cout << "Unable to load guide texture." << std::endl;
+        return false;
+    }
+    if (!guideTexture[Player::PLAYER_3].loadFromFile(p_renderer, "./asset/png/menu/player_3.png"))
+    {
+        std::cout << "Unable to load guide texture." << std::endl;
+        return false;
+    }
+    if (!guideTexture[Player::PLAYER_4].loadFromFile(p_renderer, "./asset/png/menu/player_4.png"))
+    {
+        std::cout << "Unable to load guide texture." << std::endl;
+        return false;
+    }
+
+    // Button texture
     if (!buttonTexture[ButtonType::START_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/start_button.png"))
     {
         std::cout << "Unable to load button texture." << std::endl;
         return false;
     }
-    if (!buttonTexture[ButtonType::OPTIONS_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/options_button.png"))
+    if (!buttonTexture[ButtonType::RESTART_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/restart_button.png"))
+    {
+        std::cout << "Unable to load button texture." << std::endl;
+        return false;
+    }
+    if (!buttonTexture[ButtonType::RESUME_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/resume_button.png"))
+    {
+        std::cout << "Unable to load button texture." << std::endl;
+        return false;
+    }
+    if (!buttonTexture[ButtonType::GUIDE_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/guide_button.png"))
     {
         std::cout << "Unable to load button texture." << std::endl;
         return false;
     }
     if (!buttonTexture[ButtonType::EXIT_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/exit_button.png"))
+    {
+        std::cout << "Unable to load button texture." << std::endl;
+        return false;
+    }
+    if (!buttonTexture[ButtonType::TWO_PLAYER_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/two_player_button.png"))
+    {
+        std::cout << "Unable to load button texture." << std::endl;
+        return false;
+    }if (!buttonTexture[ButtonType::THREE_PLAYER_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/three_player_button.png"))
+    {
+        std::cout << "Unable to load button texture." << std::endl;
+        return false;
+    }
+    if (!buttonTexture[ButtonType::FOUR_PLAYER_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/FOUR_player_button.png"))
     {
         std::cout << "Unable to load button texture." << std::endl;
         return false;
@@ -158,6 +216,8 @@ void Painter::free()
 
     backgroundTexture.free();
     menuTitleTexture.free();
+    miniMenuTitleTexture.free();
+    startMenuTitleTexture.free();
 
     for (auto texture : fateTexture)
     {
@@ -169,7 +229,12 @@ void Painter::free()
         texture.free();
     }
 
-    for (auto texture : miniMenuTitleTexture)
+    for (auto texture : guideTexture)
+    {
+        texture.free();
+    }
+
+    for (auto texture : miniMenuTexture)
     {
         texture.free();
     }
@@ -278,18 +343,36 @@ void Painter::drawFate(const Player &_driver, const int &_fate) const
 
 void Painter::drawMiniMenu(const Player &_winner, const std::vector<Button> &_buttonMap) const
 {
-    static Coordinate titlePosition = {(SCREEN_WIDTH - miniMenuTitleTexture[_winner].getSize().w) / 2, (SCREEN_HEIGHT - miniMenuTitleTexture[_winner].getSize().h) / 4};
-    miniMenuTitleTexture[_winner].draw(p_renderer, titlePosition);
-
-    int startButtonSprite = _buttonMap[ButtonType::START_BUTTON].getSprite();
-    SDL_Rect startButtonClip = 
+    if (_winner == Player::NONE_PLAYER)
     {
-        _buttonMap[ButtonType::START_BUTTON].getSize().w * startButtonSprite,
+        Coordinate titlePosition = {(SCREEN_WIDTH - miniMenuTitleTexture.getSize().w) / 2, (SCREEN_HEIGHT - miniMenuTitleTexture.getSize().h) / 6};
+        miniMenuTitleTexture.draw(p_renderer, titlePosition);
+    }
+    else
+    {
+        Coordinate titlePosition = {(SCREEN_WIDTH - miniMenuTexture[_winner].getSize().w) / 2, (SCREEN_HEIGHT - miniMenuTexture[_winner].getSize().h) / 4};
+        miniMenuTexture[_winner].draw(p_renderer, titlePosition);
+    }
+
+    int restartButtonSprite = _buttonMap[ButtonType::RESTART_BUTTON].getSprite();
+    SDL_Rect restartButtonClip = 
+    {
+        _buttonMap[ButtonType::RESTART_BUTTON].getSize().w * restartButtonSprite,
         0,
-        _buttonMap[ButtonType::START_BUTTON].getSize().w,
-        _buttonMap[ButtonType::START_BUTTON].getSize().h
+        _buttonMap[ButtonType::RESTART_BUTTON].getSize().w,
+        _buttonMap[ButtonType::RESTART_BUTTON].getSize().h
     };
-    buttonTexture[ButtonType::START_BUTTON].draw(p_renderer, _buttonMap[ButtonType::START_BUTTON].getPosition(), 0.0, &startButtonClip);
+    buttonTexture[ButtonType::RESTART_BUTTON].draw(p_renderer, _buttonMap[ButtonType::RESTART_BUTTON].getPosition(), 0.0, &restartButtonClip);
+
+    int resumeButtonSprite = _buttonMap[ButtonType::RESUME_BUTTON].getSprite();
+    SDL_Rect resumeButtonClip = 
+    {
+        _buttonMap[ButtonType::RESUME_BUTTON].getSize().w * resumeButtonSprite,
+        0,
+        _buttonMap[ButtonType::RESUME_BUTTON].getSize().w,
+        _buttonMap[ButtonType::RESUME_BUTTON].getSize().h
+    };
+    buttonTexture[ButtonType::RESUME_BUTTON].draw(p_renderer, _buttonMap[ButtonType::RESUME_BUTTON].getPosition(), 0.0, &resumeButtonClip);
 
     int exitButtonSprite = _buttonMap[ButtonType::EXIT_BUTTON].getSprite();
     SDL_Rect exitButtonClip = 
@@ -317,15 +400,15 @@ void Painter::drawMainMenu(const std::vector<Button> &_buttonMap) const
     };
     buttonTexture[ButtonType::START_BUTTON].draw(p_renderer, _buttonMap[ButtonType::START_BUTTON].getPosition(), 0.0, &startButtonClip);
 
-    int optionButtonSprite = _buttonMap[ButtonType::OPTIONS_BUTTON].getSprite();
-    SDL_Rect optionButtonClip = 
+    int guideButtonSprite = _buttonMap[ButtonType::GUIDE_BUTTON].getSprite();
+    SDL_Rect guideButtonClip = 
     {
-        _buttonMap[ButtonType::OPTIONS_BUTTON].getSize().w * optionButtonSprite,
+        _buttonMap[ButtonType::GUIDE_BUTTON].getSize().w * guideButtonSprite,
         0,
-        _buttonMap[ButtonType::OPTIONS_BUTTON].getSize().w,
-        _buttonMap[ButtonType::OPTIONS_BUTTON].getSize().h
+        _buttonMap[ButtonType::GUIDE_BUTTON].getSize().w,
+        _buttonMap[ButtonType::GUIDE_BUTTON].getSize().h
     };
-    buttonTexture[ButtonType::OPTIONS_BUTTON].draw(p_renderer, _buttonMap[ButtonType::OPTIONS_BUTTON].getPosition(), 0.0, &optionButtonClip);
+    buttonTexture[ButtonType::GUIDE_BUTTON].draw(p_renderer, _buttonMap[ButtonType::GUIDE_BUTTON].getPosition(), 0.0, &guideButtonClip);
 
     int exitButtonSprite = _buttonMap[ButtonType::EXIT_BUTTON].getSprite();
     SDL_Rect exitButtonClip = 
@@ -336,4 +419,58 @@ void Painter::drawMainMenu(const std::vector<Button> &_buttonMap) const
         _buttonMap[ButtonType::EXIT_BUTTON].getSize().h
     };
     buttonTexture[ButtonType::EXIT_BUTTON].draw(p_renderer, _buttonMap[ButtonType::EXIT_BUTTON].getPosition(), 0.0, &exitButtonClip);
+}
+
+void Painter::drawGuideMenu(const std::vector<Button> &_buttonMap) const
+{
+    guideTexture[Player::PLAYER_1].draw(p_renderer, {100, 100});
+    guideTexture[Player::PLAYER_2].draw(p_renderer, {850, 100});
+    guideTexture[Player::PLAYER_3].draw(p_renderer, {100, 450});
+    guideTexture[Player::PLAYER_4].draw(p_renderer, {850, 450});
+
+    int exitButtonSprite = _buttonMap[ButtonType::EXIT_BUTTON].getSprite();
+    SDL_Rect exitButtonClip = 
+    {
+        _buttonMap[ButtonType::EXIT_BUTTON].getSize().w * exitButtonSprite,
+        0,
+        _buttonMap[ButtonType::EXIT_BUTTON].getSize().w,
+        _buttonMap[ButtonType::EXIT_BUTTON].getSize().h
+    };
+    buttonTexture[ButtonType::EXIT_BUTTON].draw(p_renderer, _buttonMap[ButtonType::EXIT_BUTTON].getPosition(), 0.0, &exitButtonClip);
+}
+
+void Painter::drawStartMenu(const std::vector<Button> &_buttonMap) const
+{
+    static Coordinate titlePosition = {(SCREEN_WIDTH - startMenuTitleTexture.getSize().w) / 2, (SCREEN_HEIGHT - startMenuTitleTexture.getSize().h) / 8};
+    startMenuTitleTexture.draw(p_renderer, titlePosition);
+
+    int twoPlayerButtonSprite = _buttonMap[ButtonType::TWO_PLAYER_BUTTON].getSprite();
+    SDL_Rect twoPlayerButtonClip = 
+    {
+        _buttonMap[ButtonType::TWO_PLAYER_BUTTON].getSize().w * twoPlayerButtonSprite,
+        0,
+        _buttonMap[ButtonType::TWO_PLAYER_BUTTON].getSize().w,
+        _buttonMap[ButtonType::TWO_PLAYER_BUTTON].getSize().h
+    };
+    buttonTexture[ButtonType::TWO_PLAYER_BUTTON].draw(p_renderer, _buttonMap[ButtonType::TWO_PLAYER_BUTTON].getPosition(), 0.0, &twoPlayerButtonClip);
+
+    int threePlayerButtonSprite = _buttonMap[ButtonType::THREE_PLAYER_BUTTON].getSprite();
+    SDL_Rect threePlayerButtonClip = 
+    {
+        _buttonMap[ButtonType::THREE_PLAYER_BUTTON].getSize().w * threePlayerButtonSprite,
+        0,
+        _buttonMap[ButtonType::THREE_PLAYER_BUTTON].getSize().w,
+        _buttonMap[ButtonType::THREE_PLAYER_BUTTON].getSize().h
+    };
+    buttonTexture[ButtonType::THREE_PLAYER_BUTTON].draw(p_renderer, _buttonMap[ButtonType::THREE_PLAYER_BUTTON].getPosition(), 0.0, &threePlayerButtonClip);
+
+    int fourPlayerButtonSprite = _buttonMap[ButtonType::FOUR_PLAYER_BUTTON].getSprite();
+    SDL_Rect fourPlayerButtonClip = 
+    {
+        _buttonMap[ButtonType::FOUR_PLAYER_BUTTON].getSize().w * fourPlayerButtonSprite,
+        0,
+        _buttonMap[ButtonType::FOUR_PLAYER_BUTTON].getSize().w,
+        _buttonMap[ButtonType::FOUR_PLAYER_BUTTON].getSize().h
+    };
+    buttonTexture[ButtonType::FOUR_PLAYER_BUTTON].draw(p_renderer, _buttonMap[ButtonType::FOUR_PLAYER_BUTTON].getPosition(), 0.0, &fourPlayerButtonClip);
 }

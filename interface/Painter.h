@@ -24,11 +24,14 @@ public:
 
         backgroundTexture = Texture();
         menuTitleTexture = Texture();
+        miniMenuTitleTexture = Texture();
+        startMenuTitleTexture = Texture();
 
         fateTexture = std::vector<Texture>(Player::TOTAL_PLAYERS, Texture());
         playgroundTexture = std::vector<Texture>(ObjectType::TOTAL_TYPES + Player::TOTAL_PLAYERS - 1, Texture());
 
-        miniMenuTitleTexture = std::vector<Texture>(Player::TOTAL_PLAYERS, Texture());
+        miniMenuTexture = std::vector<Texture>(Player::TOTAL_PLAYERS, Texture());
+        guideTexture = std::vector<Texture>(Player::TOTAL_PLAYERS, Texture());
 
         buttonTexture = std::vector<Texture>(ButtonType::TOTAL_BUTTONS, Texture());
     }
@@ -45,6 +48,8 @@ public:
 
     void drawMiniMenu(const Player &_winner, const std::vector<Button> &_buttonMap) const;
     void drawMainMenu(const std::vector<Button> &_buttonMap) const;
+    void drawGuideMenu(const std::vector<Button> &_buttonMap) const;
+    void drawStartMenu(const std::vector<Button> &_buttonMap) const;
 
 protected:
     SDL_Renderer *p_renderer;
@@ -53,11 +58,14 @@ protected:
 
     Texture backgroundTexture;
     Texture menuTitleTexture;
+    Texture miniMenuTitleTexture;
+    Texture startMenuTitleTexture;
 
     std::vector<Texture> playgroundTexture;
     std::vector<Texture> fateTexture;
 
-    std::vector<Texture> miniMenuTitleTexture;
+    std::vector<Texture> miniMenuTexture;
+    std::vector<Texture> guideTexture;
 
     std::vector<Texture> buttonTexture;
 };
