@@ -35,5 +35,29 @@
 # Video gameplay #
   - [CHASE - Gameplay]()
 # Kỹ thuật lập trình #
-
+## C++ ##
+  - Lập trình cơ bản:
+    - Cấu trúc dữ liệu: Mảng, Vector.
+    - Làm việc với con trỏ: Con trỏ hằng, hằng con trỏ, cấp phát và giải phóng bộ nhớ động.
+    - Sử dụng `enum` để chương trình tường minh hơn.
+    - Sử dụng hằng `constexpr` để cải thiện hiệu suất.
+    - Sử dụng biến `static` cho một số mục đích đặc biệt.
+    - Đóng gói dữ liệu với `struct`.
+    - Làm việc với thời gian hệ thống.
+    - Sinh ngẫu nhiêu.
+  - Lập trình hướng đối tượng:
+    - Đống gói và kế thừa đối tượng với `class`.
+## SDL2 ##
+  - Khởi tạo SDL subsystem.
+  - Load, manipulate và render texture.
+  - Xử lý keyboard và mouse event.
+  - Dựng hiệu ứng animation đơn giản.
+  - Trình phát âm thanh, nhạc nền.
+## Khác ##
+  - Vận dụng kiến thức vật lý, toán hoặc để xử lý quá trình di chuyển và va chạm của các đối tượng.
+# Cài đặt #
+  - Tải và giải nén [Chase](https://drive.google.com/file/d/1ZHJw16yve_QTpMsUJAVi1zcBFzRKaKcU/view?usp=sharing).
+  - Chạy file Chase.exe để bắt đầu.
+  - Mời thêm một vài người bạn đề cùng chơi.
+  - Enjoy!
   
