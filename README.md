@@ -72,6 +72,7 @@
 # Tham khảo #
   - Gameplay: [Chase on Steam](https://store.steampowered.com/app/867390/Chase/)
   - SDL2: [LazyFoo SDL Tutorial](https://lazyfoo.net/tutorials/SDL/)
-  - Logic game: Em tự thiết kế và cài đặt.
+  - Kỹ thuật lập trình: Khóa học INT2215.
+  - Gamelogic: Em tự thiết kế và cài đặt.
     
   
