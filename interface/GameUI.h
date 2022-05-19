@@ -43,7 +43,7 @@ public:
     ShootingControl getShootingKey() const;
     int getPlayerNumber() const;
     bool isQuit() const;
-    void exit();
+    void close();
 
     void initMainMenuButton();
     void handleMainMenuEvent(Status &_status);

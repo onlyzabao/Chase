@@ -60,7 +60,6 @@ void GameUI::free()
 {
     Painter::free();
     Mixer::free();
-
     
     SDL_DestroyWindow(p_window);
     p_window = nullptr;
@@ -69,6 +68,7 @@ void GameUI::free()
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
+    exit(0);
 }
 
 bool GameUI::loadTexture()
@@ -324,7 +324,7 @@ bool GameUI::isQuit() const
     return quit;
 }
 
-void GameUI::exit()
+void GameUI::close()
 {
     quit = true;
 }

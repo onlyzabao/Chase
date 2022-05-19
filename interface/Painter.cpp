@@ -195,7 +195,7 @@ bool Painter::loadTexture()
         std::cout << "Unable to load button texture." << std::endl;
         return false;
     }
-    if (!buttonTexture[ButtonType::FOUR_PLAYER_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/FOUR_player_button.png"))
+    if (!buttonTexture[ButtonType::FOUR_PLAYER_BUTTON].loadFromFile(p_renderer, "./asset/png/menu/four_player_button.png"))
     {
         std::cout << "Unable to load button texture." << std::endl;
         return false;
