@@ -2,6 +2,11 @@
 # Thông tin chung #
   - Sản phẩm: Bài tập lớn cuối kì môn Lập trình nâng cao.
   - Sinh viên: Nguyễn Trần Gia Bảo - 21020751.
+# Cài đặt #
+  - Tải và giải nén [Chase](https://drive.google.com/file/d/1ZHJw16yve_QTpMsUJAVi1zcBFzRKaKcU/view?usp=sharing).
+  - Chạy file Chase.exe để bắt đầu.
+  - Mời thêm một vài người bạn đề cùng chơi.
+  - Enjoy!
 # Mô tả sản phẩm #
 ## Luật chơi ##
   - Những người chơi (Tối đa 4 người) sẽ điều khiển phi thuyền của mình tránh khỏi sự truy đuổi của tên lửa.
@@ -55,9 +60,14 @@
   - Trình phát âm thanh, nhạc nền.
 ## Khác ##
   - Vận dụng kiến thức vật lý, toán hoặc để xử lý quá trình di chuyển và va chạm của các đối tượng.
-# Cài đặt #
-  - Tải và giải nén [Chase](https://drive.google.com/file/d/1ZHJw16yve_QTpMsUJAVi1zcBFzRKaKcU/view?usp=sharing).
-  - Chạy file Chase.exe để bắt đầu.
-  - Mời thêm một vài người bạn đề cùng chơi.
-  - Enjoy!
+# Kết luận #
+  - Sau khi hoàn thành sản phẩm đầu tay của bản thân, em hiểu rõ hơn về những vấn đề sau khi lập trình:
+    - __OOP:__ Khi bắt tay vào làm game, cá nhân em cảm thấy phong cách lập trình OOP giúp mình dễ dàng hình dung và cài đặt chương trình hơn so với phong cách lập trình POP mà em thường sử dụng khi giải quyết một số bài toán nhỏ.
+    - __Concept & Design (in CDIO):__ Sau rất nhiều lần code rồi lại xóa đi viết lại, việc vẽ một sơ đồ mô tả hệ thống chương trình và cách các đối tượng tương tác với nhau khiến hiệu suất làm việc của em được cải thiện rất nhiều.
+    - __Clean code:__ Tìm hiểu thêm về một số "luật bất thành văn" khi viết code giúp em bảo dưỡng mã nguồn tốt hơn.
+ - Đối với định hướng phát triển sản phẩm CHASE của bản thân:
+    - Xuất phát điểm là một tựa game Local multiplayer, em muốn bổ sung thêm cho CHASE tính năng LAN multiplayer và Online multiplayer.
+    - Bổ sung một số item: Hồi máu, tạo khiên, tạo hố đen giữ chân người chơi khác, ...
+    - Cải thiện đồ họa, thêm tính năng tùy chỉnh phi thuyền của người chơi.
+    
   
