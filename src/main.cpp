@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
                 else if (status == Status::EXIT_STATUS)
                 {
                     // Exit
-                    p_gameUI->exit();
+                    p_gameUI->close();
                 }
                 p_gameUI->clear();
                 p_gameUI->drawBackground();
