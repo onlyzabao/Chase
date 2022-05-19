@@ -5,7 +5,7 @@
 # Cài đặt #
   - Tải và giải nén [Chase](https://drive.google.com/file/d/1ZHJw16yve_QTpMsUJAVi1zcBFzRKaKcU/view?usp=sharing).
   - Chạy file Chase.exe để bắt đầu.
-  - Mời thêm một vài người bạn đề cùng chơi.
+  - Mời thêm một vài người bạn cùng chơi.
   - Enjoy!
 # Mô tả sản phẩm #
 ## Luật chơi ##
