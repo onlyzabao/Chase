@@ -70,7 +70,7 @@
     - Bổ sung một số item: Hồi máu, tạo khiên, tạo hố đen giữ chân người chơi khác, ...
     - Cải thiện đồ họa, thêm tính năng tùy chỉnh phi thuyền của người chơi.
 # Tham khảo #
-  - Gameplay: [Chase](https://store.steampowered.com/app/867390/Chase/)
+  - Gameplay: [Chase on Steam](https://store.steampowered.com/app/867390/Chase/)
   - SDL2: [LazyFoo](https://lazyfoo.net/tutorials/SDL/)
   - Logic game: Em tự thiết kế và cài đặt.
     
