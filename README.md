@@ -71,7 +71,7 @@
     - Cải thiện đồ họa, thêm tính năng tùy chỉnh phi thuyền của người chơi.
 # Tham khảo #
   - Gameplay: [Chase on Steam](https://store.steampowered.com/app/867390/Chase/)
-  - SDL2: [LazyFoo](https://lazyfoo.net/tutorials/SDL/)
+  - SDL2: [LazyFoo SDL Tutorial](https://lazyfoo.net/tutorials/SDL/)
   - Logic game: Em tự thiết kế và cài đặt.
     
   
