@@ -38,7 +38,7 @@
   - Máy treo dõi cần được gắn trúng phi thuyền để phát huy tác dụng.
   - Màu sắc của không gian sẽ thay đổi tương ứng với màu sắc của phi thuyền đang bị theo dõi.
 # Video gameplay #
-  - [CHASE - Gameplay]()
+  - [CHASE - Gameplay](https://www.youtube.com/watch?v=yqtReijE-as)
 # Kỹ thuật lập trình #
 ## C++ ##
   - Lập trình cơ bản:
