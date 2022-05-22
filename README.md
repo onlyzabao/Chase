@@ -69,6 +69,7 @@
     - Xuất phát điểm là một tựa game Local multiplayer, em muốn bổ sung thêm cho CHASE tính năng LAN multiplayer và Online multiplayer.
     - Bổ sung một số item: Hồi máu, tạo khiên, tạo hố đen giữ chân người chơi khác, ...
     - Cải thiện đồ họa, thêm tính năng tùy chỉnh phi thuyền của người chơi.
+    - Xây dựng AI lái phi thuyền để người chơi có thể chơi đơn.
  - Tự đánh giá sản phẩm: 9+
 # Nguồn tham khảo #
   - Gameplay: [Chase on Steam](https://store.steampowered.com/app/867390/Chase/)
