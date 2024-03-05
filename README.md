@@ -2,11 +2,6 @@
 # Thông tin chung #
   - Sản phẩm: Bài tập lớn cuối kì môn Lập trình nâng cao.
   - Sinh viên: Nguyễn Trần Gia Bảo - 21020751.
-# Cài đặt #
-  - Tải và giải nén [Chase](https://drive.google.com/file/d/1ZHJw16yve_QTpMsUJAVi1zcBFzRKaKcU/view?usp=sharing).
-  - Chạy file Chase.exe để bắt đầu.
-  - Mời thêm một vài người bạn cùng chơi.
-  - Enjoy!
 # Mô tả sản phẩm #
 ## Luật chơi ##
   - Những người chơi (Tối đa 4 người) sẽ điều khiển phi thuyền của mình tránh khỏi sự truy đuổi của tên lửa.
